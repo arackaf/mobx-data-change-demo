@@ -14,7 +14,10 @@ export default class Main extends Component {
     let { store } = this.props;
     return (
       <div>
-        <button>Run it</button>
+        <button onClick={store.bumpA}>Bump A</button>
+        <button onClick={store.bumpB}>Bump B</button>
+        <button onClick={store.bumpAandB}>Bump A and B</button>
+        <button onClick={store.clear}>Clear</button>
         <div>
           <ul>{store.messages.map(s => <li>{s}</li>)}</ul>
         </div>

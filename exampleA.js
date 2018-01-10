@@ -1,4 +1,5 @@
 import { action, observable, computed, autorun } from "mobx";
+import ajaxUtil from "./ajaxUtil";
 
 export default class {
   @observable propA = 0;
@@ -6,14 +7,24 @@ export default class {
   @observable propC = 0;
   @observable messages = [];
 
+  clear = () => this.messages.clear();
+
   @computed
   get sum() {
     return this.propA + this.propB + this.propC;
   }
 
+  bumpA = () => this.propA++;
+  bumpB = () => this.propB++;
+  bumpAandB = () => {
+    this.propA++;
+    this.propB++;
+  };
+
   constructor() {
     autorun(() => {
       this.messages.push("autorun started");
+
       let a = this.propA;
       let b = this.propB;
       let c = this.propC;
