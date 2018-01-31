@@ -1,0 +1,8 @@
+observe(this, "propA",
+      throttle(({ name, oldValue, newValue }) => {
+        this.messages.push("observe propA started");
+
+        this.messages.push([name, oldValue, newValue].join(" "));
+        this.messages.push("observe propA finished");
+      }, 100, { leading: false })
+    );
