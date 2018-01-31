@@ -10,7 +10,6 @@ const store = new ExampleA();
 
 @observer
 export default class Main extends Component {
-  @observable
   render() {
     let { store } = this.props;
     return (
@@ -20,7 +19,7 @@ export default class Main extends Component {
         {store.bumpB ? <button onClick={store.bumpB}>Bump B</button> : null}
         {store.bumpAandB ? <button onClick={store.bumpAandB}>Bump A and B</button> : null}
         {store.clear ? <button onClick={store.clear}>Clear</button> : null}
-        {store.runs != null ? <span>{store.runs}</span> : null}
+        <span>{store.runs}</span>
         <div>
           <ul>{store.messages.map(s => <li>{s}</li>)}</ul>
         </div>
