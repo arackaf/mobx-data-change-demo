@@ -25,6 +25,7 @@ export default class {
   };
 
   constructor() {
+    //Track the READS
     autorun(() => {
       this.messages.push("autorun started");
 
