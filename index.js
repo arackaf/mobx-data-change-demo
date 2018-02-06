@@ -21,7 +21,7 @@ export default class Main extends Component {
         {store.clear ? <button onClick={store.clear}>Clear</button> : null}
         <span>{store.runs}</span>
         <div>
-          <ul>{store.messages.map(s => <li>{s}</li>)}</ul>
+          <ul>{store.messages.map((s, i) => <li key={i}>{s}</li>)}</ul>
         </div>
       </div>
     );
