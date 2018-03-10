@@ -1,28 +1,43 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import { observer } from "mobx-react";
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, observe } from "mobx";
 
 import ExampleA from "./exampleA";
 import ExampleB from "./exampleB";
 
-const store = new ExampleA();
+//const store = new ExampleA();
+
+class WithMap {
+  @observable map = new Map([]);
+  i = 1;
+  add = () => (this.map.set(this.i + "", this.i), this.i++);
+
+  @observable foo = {};
+
+  constructor() {
+    observe(this, "foo", props => {
+      debugger;
+    });
+
+    setTimeout(() => (this.foo.blah = 12), 1000);
+    setTimeout(() => alert(this.foo.blah), 1010);
+  }
+}
+
+let store = new WithMap();
 
 @observer
 export default class Main extends Component {
   render() {
-    let { store } = this.props;
     return (
       <div>
-        {store.bumpA ? <button onClick={store.bumpA}>Bump A</button> : null}
-        {store.bumpATwice ? <button onClick={store.bumpATwice}>Bump A Twice</button> : null}
-        {store.bumpB ? <button onClick={store.bumpB}>Bump B</button> : null}
-        {store.bumpAandB ? <button onClick={store.bumpAandB}>Bump A and B</button> : null}
-        {store.clear ? <button onClick={store.clear}>Clear</button> : null}
-        <span>{store.runs}</span>
-        <div>
-          <ul>{store.messages.map(s => <li>{s}</li>)}</ul>
-        </div>
+        {[...store.map].map(([k, v]) => (
+          <span>
+            {k} {v}
+          </span>
+        ))}
+        <button onClick={store.add}>Add</button>
       </div>
     );
   }
